@@ -1,0 +1,148 @@
+\begin{frame}
+    \frametitle{MoonCloud}
+    \begin{itemize}
+        \item Framework per la \alert{valutazione}
+        ed il \alert{monitoraggio continuo} di servizi
+        cloud
+        \item valutazione continuata che
+        \alert{proprietà} siano rispettate nel servizio cloud
+        (\textit{non solo proprietà di sicurezza})
+        \item per l'utente finale MoonCloud è un \alert{servizio}
+        offerto via cloud
+        \begin{itemize}
+            \item inserisce informazioni sul target
+            \item MoonCloud effettua valutazione
+            \item mostra risultati
+        \end{itemize}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Non solo cloud}
+    % \begin{itemize}
+    %     \item MoonCloud offre un approccio \alert{generico} per
+    %     valutare qualsiasi tipo di proprietà in un sistema cloud
+    %     \item estendere MoonCloud per analizzare infrastrutture IT
+    %     \textit{classiche}
+    % \end{itemize}
+    \alert{Obiettivo}: estendere MoonCloud per poter analizzare
+    infrastrutture IP \textit{classiche} (reti aziendali)
+
+        \begin{itemize}
+            \item mantenendo intatto il modello \alert{as-a-service} di
+            MoonCloud
+            \item MoonCloud non può semplicemente fare richieste verso
+            una rete target, c'è almeno un firewall
+            \item soluzione: utilizzare una \alert{VPN} tra MoonCloud e la rete target
+        \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Soluzione}
+    La soluzione VPN deve:
+    \begin{itemize}
+        \item essere \alert{flessibile}
+        \item \alert{ligthweight} per il cliente: non deve configurare niente
+        nella propria rete
+    \end{itemize}
+
+    Soluzione:
+    \begin{itemize}
+        \item device \alert{Linux} portato nella rete target che fa da VPN client
+        \item in MoonCloud i VPN server
+        \item \alert{OpenVPN} per il collegamento VPN 
+        \item \alert{nftables} (successore
+        di \alert{iptables}) per risolvere problemi di configurazione
+    \end{itemize}
+\end{frame}
+
+
+%section sfide principali
+\begin{frame}
+    \frametitle{Sfida 1 -- NAT al contrario}
+
+    \begin{itemize}
+        \item<1-> IP sorgente dei pacchetti MoonCloud $\rightarrow$ rete target
+        appartiene alla rete MoonCloud
+        \item<2-> la rete target deve inviare le risposte al VPN client, ma senza
+        rotte configurate le invierebbe al proprio default gateway
+    \end{itemize}
+
+    \alert{NAT al contrario}: tutti i pacchetti provenienti dalla VPN vengono
+    immessi nella rete target usando come IP sorgente quello del client VPN
+    \begin{itemize}
+        \item stesso NET ID della rete target
+        \item quindi le risposte tornano direttamente ad esso
+        \item realizzato con \alert{nftables}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Sfida 2 -- IP mapping}
+    ``\textit{Ogni rete connessa alla VPN deve stare in reti IP diverse}''\footnote{\url{https://openvpn.net}}
+    \begin{itemize}
+        \item<1-> si vuole che un server gestisca più client, quindi reti, possibili
+        \item<2-> ma reti target hanno IP privati
+        \item<3-> quindi ci saranno conflitti
+    \end{itemize}
+
+    \alert{IP mapping}: \textit{mappare} ogni rete target in una nuova rete
+    \alert{garantita univoca} perché scelta da MoonCloud
+    \begin{itemize}
+        \item tutta MoonCloud conosce solo indirizzi mappati quindi unici
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Sfida 2 -- IP mapping (2)}
+    \begin{itemize}
+        \item \alert{Lato client} si utilizza \alert{nftables} sul VPN client
+        \begin{itemize}
+            \item pacchetti MoonCloud $\rightarrow$ client: modifica IP mappato $\rightarrow$ IP originale
+            (e poi invia a target)
+            \item pacchetti client $\rightarrow$ MoonCloud: modifica IP originale $\rightarrow$ IP mappato
+        \end{itemize}
+        \item \alert{Lato server}
+        \begin{itemize}
+            \item quando si registra un nuovo client si \textit{mappano} le sue reti su reti nuove
+            \item \alert{trasparente} per l'utente
+            \begin{itemize}
+                \item inserisce come target l'IP originale
+                \item MoonCloud si occupa di mapparlo
+            \end{itemize}
+        \end{itemize}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{MoonCloud\_VPN}
+    \alert{Microservizio} integrato in MoonCloud per gestire la soluzione VPN
+    \begin{itemize}
+        \item creare file di \alert{configurazione} per \alert{OpenVPN}
+        \begin{itemize}
+            \item e \alert{trasferimento} via SSH ai server
+        \end{itemize}
+        \item gestire i \alert{certificati} di client e server
+        \begin{itemize}
+            \item creare
+            \item revocare mediante \alert{CRL}
+        \end{itemize}
+        \item gestire \alert{IP mapping}
+        \begin{itemize}
+            \item file di \alert{configurazione} per \alert{nftables}
+            \item assegnare nuove reti ai client
+            \item dato un IP originale ritornare quello mappato
+        \end{itemize}
+    \end{itemize}
+\end{frame}
+
+% OTHER POSSIBILITIES?
+
+% \begin{frame}
+%     \frametitle{MoonCloud\_VPN (2)}
+%     Tecnologie:
+%     \begin{itemize}
+%         \item Python
+%         \item \alert{HTTP REST API}
+%     \end{itemize}
+% \end{frame}
