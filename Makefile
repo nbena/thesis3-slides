@@ -11,6 +11,9 @@ latex_flags := --file_line_error
 files := $(latex_input)
 files += content.tex
 
+img_directory := img
+images := $(img_directory)/ls.pdf
+
 aux_files := *.aux
 all_deps := $(files)
 
