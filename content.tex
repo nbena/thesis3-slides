@@ -73,6 +73,29 @@
 
 
 \begin{frame}
+    \frametitle{MoonCloud\_VPN}
+    \alert{Microservizio} integrato in MoonCloud per gestire la soluzione VPN
+    \begin{itemize}
+        \item creazione file di \alert{configurazione} per \alert{OpenVPN}
+        \begin{itemize}
+            \item \alert{trasferimento} via SSH ai server
+        \end{itemize}
+        \item gestione \alert{certificati} di client e server
+        \begin{itemize}
+            \item creazione
+            \item revoca e rinnovo mediante \alert{CRL}
+        \end{itemize}
+        \item gestione \alert{IP mapping}
+        \begin{itemize}
+            \item assegnazione nuove reti ai client
+            \item creazione file di \alert{configurazione} per \alert{nftables}
+            \item dato un IP originale ritornare quello mappato
+        \end{itemize}
+    \end{itemize}
+\end{frame}
+
+
+\begin{frame}
 	\frametitle{NAT al contrario}
 	
 	\begin{itemize}
@@ -92,7 +115,7 @@
 \end{frame}
 
 \begin{frame}
-	\frametitle{Sfida 2 -- IP mapping}
+	\frametitle{IP mapping}
 	``\textit{Ogni rete connessa alla VPN deve stare in reti IP diverse}''\footnote{\url{https://openvpn.net}}
 	\begin{itemize}
 		\item si vuole che un server gestisca il maggior numero di reti target diverse
@@ -107,7 +130,7 @@
 \end{frame}
 
 \begin{frame}
-	\frametitle{Sfida 2 -- IP mapping (2)}
+	\frametitle{IP mapping (2)}
 	\begin{enumerate}
 		\item Quando si registra un nuovo cliente, le sue reti vengono \alert{mappate}
 		      in reti nuove ed univoche
@@ -152,25 +175,25 @@
     \end{itemize}
 \end{frame}
 
-\begin{frame}
-    \frametitle{MoonCloud\_VPN}
-    \alert{Microservizio} integrato in MoonCloud per gestire la soluzione VPN
-    \begin{itemize}
-        \item creazione file di \alert{configurazione} per \alert{OpenVPN}
-        \begin{itemize}
-            \item \alert{trasferimento} via SSH ai server
-        \end{itemize}
-        \item gestione \alert{certificati} di client e server
-        \begin{itemize}
-            \item creazione
-            \item revoca e rinnovo mediante \alert{CRL}
-        \end{itemize}
-        \item gestione \alert{IP mapping}
-        \begin{itemize}
-            \item assegnazione nuove reti ai client
-            \item creazione file di \alert{configurazione} per \alert{nftables}
-            \item dato un IP originale ritornare quello mappato
-        \end{itemize}
-    \end{itemize}
-\end{frame}
+% \begin{frame}
+%     \frametitle{MoonCloud\_VPN}
+%     \alert{Microservizio} integrato in MoonCloud per gestire la soluzione VPN
+%     \begin{itemize}
+%         \item creazione file di \alert{configurazione} per \alert{OpenVPN}
+%         \begin{itemize}
+%             \item \alert{trasferimento} via SSH ai server
+%         \end{itemize}
+%         \item gestione \alert{certificati} di client e server
+%         \begin{itemize}
+%             \item creazione
+%             \item revoca e rinnovo mediante \alert{CRL}
+%         \end{itemize}
+%         \item gestione \alert{IP mapping}
+%         \begin{itemize}
+%             \item assegnazione nuove reti ai client
+%             \item creazione file di \alert{configurazione} per \alert{nftables}
+%             \item dato un IP originale ritornare quello mappato
+%         \end{itemize}
+%     \end{itemize}
+% \end{frame}
 
