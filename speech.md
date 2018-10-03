@@ -2,12 +2,18 @@
 
 ## 1 Motivazioni
 
-TODO
+Nell'ambito della security assessment ed assurance per sistemi cloud, gli approcci che si sonor rivelati più efficaci sono quelli basati sulla raccolta di evidenze presso il sistema stesso, per determinare quale sia il reale livello di sicurezza.
+
+Per raccogliere tali evidenze è possibile sfruttare gli hook messi a dispozione dai cloud provider stessi.
+
+Si vuole estendere questo paradigma anche per l'analisi di reti e cloud private, dove tuttavia questi hook non sono disponibili. Oltretutto, sono reti protette da firewall e probabilmente anche da NAT.
 
 ## 2 Obiettivi
 
 L'obiettivo è stato quello di consentire l'effettuazione di
 ispezioni per _Security Assurance_ anche all'interno di reti e cloud private.
+
+La nuova soluzione deve garantire un alto livello di sicurezza, e deve essere il più possibile lightweight per i clienti, nel senso che si deve integrare nella loro infrastruttura senza richiedere configurazioni particolari, come ad esempio aprire porte del firewall o specificare delle rotte nel default gateway. Per questo deve anche mantenere, nei limiti del possibile, il paradigma _as-a-service_ della security assurance ed assessment fatte in sistemi cloud pubblici.
 
 ## 3 Security Assurance e MoonCloud
 
