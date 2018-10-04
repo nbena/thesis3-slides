@@ -1,8 +1,10 @@
-# Discorso da fare
+# Guida
 
 ## 1 Motivazioni
 
-Nell'ambito della security assessment ed assurance per sistemi cloud, gli approcci che si sonor rivelati più efficaci sono quelli basati sulla raccolta di evidenze presso il sistema stesso, per determinare quale sia il reale livello di sicurezza.
+Con l'aumentare della complessità dei sistemi IT aumenta anche la necessità di effettuare attività di _Security Assurance_ e _Security Assessment_. In particolare tali attività dovrebbero essere svolte in maniera continuativa, ed essere erogate _as-a-service_ in modo da ridurre i costi.
+
+Nell'ambito di queste attività per sistemi cloud, gli approcci che si sono rivelati più efficaci sono quelli basati sulla raccolta di evidenze presso il sistema stesso, per determinare quale sia il reale livello di sicurezza.
 
 Per raccogliere tali evidenze è possibile sfruttare gli hook messi a dispozione dai cloud provider stessi.
 
@@ -11,7 +13,7 @@ Si vuole estendere questo paradigma anche per l'analisi di reti e cloud private,
 ## 2 Obiettivi
 
 L'obiettivo è stato quello di consentire l'effettuazione di
-ispezioni per _Security Assurance_ anche all'interno di reti e cloud private.
+ispezioni per _Security Assurance_ ed _Assessment_ anche all'interno di reti e cloud private.
 
 La nuova soluzione deve garantire un alto livello di sicurezza, e deve essere il più possibile lightweight per i clienti, nel senso che si deve integrare nella loro infrastruttura senza richiedere configurazioni particolari, come ad esempio aprire porte del firewall o specificare delle rotte nel default gateway. Per questo deve anche mantenere, nei limiti del possibile, il paradigma _as-a-service_ della security assurance ed assessment fatte in sistemi cloud pubblici.
 
@@ -33,13 +35,13 @@ Queste le tecnologie usate:
 
 - *OpenVPN* per la VPN
 - un client VPN *Linux*  portato nella rete target e responsabile di instaurare il collegamento
-- *nftables*, successore di _iptables_ per risolvere numerosi problemi di configurazione derivanti da un utilizzo _non standard_.
+- *nftables*, successore di _iptables_ per risolvere numerosi problemi di configurazione derivanti da un utilizzo _non standard_, per il quale ad esempio non è possibile chiedere al cliente di effettuare alcuna configurazione nella propria rete.
 
-Molto importante è stato essere _configuration-free_, e ciò ha imposto di adottare soluzioni particolarmente innovative.
+A tale scopo sono proposte varie soluzioni innovative.
 
 ## 5 Soluzione (2)
 
-In questa immagine possiamo vedere l'architettura...
+In questa immagine possiamo vedere l'architettura discussa. Lato MoonCloud vi è un VPN server che è in grado di gestire più clienti diversi, in cui si hanno i client VPN.
 
 ## NAT al contrario
 
@@ -76,6 +78,14 @@ A questo punto l'host target produce una risposta che viene inviata al VPN clien
 
 Per effettuare tutto ciò si utilizza ancora *nftables*.
 
+## MoonCloud_VPN
+
+Come contorno all'architettura proposta si è realizzato un microservizio dedicato alla sua gestione. Esso è scritto in Python ed espone delle API rest per assolvere i seguenti compiti:
+
+- creazione dei file di configurazione per OpenVPN client e server, e trasferimento via SSH ai server
+- gestione del ciclo di vita dei certificati utilizzati per l'autenticazione nella VPN
+- gestione dell'IP mapping, per cui una volta che un cliente si enrolla si mappano le sue reti in reti univoche, e, dato un indirizzo IP originale ritornare l'IP mappato.
+
 ## Sicurezza
 
 Il VPN client viene portato in una rete untrusted, e quindi è fondamentale proteggere la rete MoonCloud da qualsiasi attacco portato avanti tramite tale collegamento.
@@ -84,4 +94,6 @@ Per farlo si sono predisposte delle regole di firewalling sui VPN server per cui
 
 ## Conclusioni
 
-TOODO.
+In conclusione, l'architettura proposta consente di applicare gli approcci di _Security Assurance_ ed _Assessment_ che si sono dimostrati tanto efficaci per sistemi cloud anche per reti e cloud private.
+
+Posto di portare nella rete target il VPN client, si mantiene ancora un paradigma as-a-service che garantisce elevata sicurezza.
