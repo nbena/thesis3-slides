@@ -80,7 +80,7 @@ Per effettuare tutto ciò si utilizza ancora *nftables*.
 
 ## MoonCloud_VPN
 
-Come contorno all'architettura proposta si è realizzato un microservizio dedicato alla sua gestione. Esso è scritto in Python ed espone delle API rest per assolvere i seguenti compiti:
+Come contorno all'architettura proposta si è realizzato un microservizio dedicato alla sua gestione. Esso è scritto in Python ed espone delle API rest per assolvere ai seguenti compiti:
 
 - creazione dei file di configurazione per OpenVPN client e server, e trasferimento via SSH ai server
 - gestione del ciclo di vita dei certificati utilizzati per l'autenticazione nella VPN
