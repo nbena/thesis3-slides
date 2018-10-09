@@ -23,7 +23,7 @@ Nell'ambito della tesi si è collaborato con MoonCloud, spin-off dell'Universit�
 
 MoonCloud è un framework per l'analisi ed il monitoraggio continuo di sistemi cloud, le cui analisi sono volte alla certificazione in caso di rispetto di una data proprietà.
 
-Per effettuare le proprie valutazioni MoonCloud utilizza una raccolta continua di evidenze, in modo da attestare l'effettivo stato della sicurezza di un sistema (_Security Assurance_).
+Per effettuare le proprie valutazioni MoonCloud utilizza una raccolta continua di evidenze, in modo da attestare l'effettivo stato della sicurezza di un sistema (_Security Assurance_) e di valutare che certe proprietà siano rispettate.
 
 MoonCloud viene offerto _as-a-service_, al cliente finale non è richiesto di installare niente, semplicemente, dopo essersi registrato, specifica i parametri del target. MoonCloud si occupa di fare l'analisi e di mostrare i risultati.
 
