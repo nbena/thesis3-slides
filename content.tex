@@ -11,7 +11,7 @@
 	\begin{itemize}
 		\item per ispezionare una cloud pubblica si possono sfruttare
 		      gli \alert{hook} messi a disposizione dal cloud provider
-		\item in una rete privata \textit{classica} non sono disponibili
+		\item in una rete \textit{classica} o cloud privata non sono disponibili
 		      		      		      
 		      \begin{itemize}
 		      	\item necessità di passare attraverso \alert{firewall} e \alert{NAT}
@@ -104,7 +104,7 @@
 	\frametitle{NAT al contrario}
 		
 	\begin{itemize}
-		\item IP src dei pacchetti MoonCloud verso la rete target
+		\item IP sorgente dei pacchetti MoonCloud diretti alla rete target
 		      appartiene alla rete MoonCloud
 		\item la rete target deve inviare le risposte al VPN client, ma senza
 		      rotte configurate le invierebbe al proprio default gateway
@@ -137,12 +137,12 @@
 \begin{frame}
 	\frametitle{IP mapping (2)}
 	\begin{enumerate}
-		\item Quando si registra un nuovo cliente, le sue reti vengono \alert{mappate}
+		\item Quando si registra un nuovo cliente le sue reti vengono \alert{mappate}
 		      in reti nuove ed univoche
 		      		      
 		\item il cliente specifica il target dell'analisi usando l'indirizzo IP reale
 		      		              
-		\item MoonCloud ne ottiene la \alert{versione mappata} in maniera tutto
+		\item MoonCloud ne ottiene la \alert{versione mappata} in maniera
 		      \alert{trasparente}: è il l'IP dst dell'analisi
 		      		      
 		\item l'analisi parte, nel \alert{VPN client}
@@ -193,12 +193,12 @@
 	Il device VPN viene portato in una rete \alert{non trusted} quindi
 	occorre \alert{proteggere MoonCloud}:
 	\begin{itemize}
-		\item \alert{regole di firewalling} sui VPN server che consentano
+		\item \alert{regole di firewalling} sui VPN server che consentono
 		      alle \alert{sole richieste e risposte} da/per MoonCloud di transitare
 	\end{itemize}
 	
 	\begin{itemize}
-		\item si utilizza ancora \alert{nftables}
+		\item si utilizza \alert{nftables}
 	\end{itemize}
 \end{frame}
 
