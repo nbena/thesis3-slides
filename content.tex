@@ -123,14 +123,14 @@
 \end{frame}
 
 \begin{frame}
-	\frametitle{IP mapping}
+	\frametitle{IP Mapping}
 	``\textit{Ogni rete connessa alla VPN deve stare in reti IP diverse}''\footnote{\url{https://openvpn.net}}
 	\begin{itemize}
 		\item si vuole che un server gestisca il maggior numero di reti target diverse
 		\item alta probabilità che due reti abbiano lo stesso NET ID
 	\end{itemize}
 		
-	\alert{IP mapping}: \textit{mappare} ogni rete target in una nuova rete
+	\alert{IP Mapping}: \textit{mappare} ogni rete target in una nuova rete
 	\alert{garantita univoca} perché scelta da MoonCloud
 	\begin{itemize}
 		\item tutta MoonCloud conosce solo indirizzi mappati quindi unici
@@ -138,7 +138,7 @@
 \end{frame}
 
 \begin{frame}
-	\frametitle{IP mapping (2)}
+	\frametitle{IP Mapping (2)}
 	\begin{enumerate}
 		\item Quando si registra un nuovo cliente le sue reti vengono \alert{mappate}
 		      in reti nuove ed univoche
@@ -182,7 +182,7 @@
 		      	\item creazione
 		      	\item revoca e rinnovo mediante \alert{CRL}
 		      \end{itemize}
-		\item gestione \alert{IP mapping}
+		\item gestione \alert{IP Mapping}
 		      \begin{itemize}
 		      	\item assegnazione nuove reti ai client
 		      	\item creazione file di \alert{configurazione} per \alert{nftables}
